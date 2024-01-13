@@ -1,0 +1,64 @@
+source_path: ../data/b3g_large
+base_path: ../output/embed
+dataset_name: b3g_large
+tokens:
+  generate: true
+  tokenizer:
+    name: facebook/contriever-msmarco
+    repo_or_dir: ../lib/huggingface_pytorch-transformers_main
+    skip_validation: true
+    source: local
+sequences:
+  seq_len: 5100
+chunks:
+  generate: true
+  chunk_len: 510
+embeddings:
+  generate: true
+  batch_size: 128
+  embed_dim: 768
+  model:
+    name: facebook/contriever-msmarco
+    repo_or_dir: ../lib/huggingface_pytorch-transformers_main
+    skip_validation: true
+    source: local
+  parallel:
+    num_workers: 2
+    submitit:
+      submitit_path: ../output/submitit
+      cluster: null
+      partition: learnlab
+      cpus_per_task: 5
+      gpus_per_node: 1
+      slurm_time: 18
+      slurm_job_name: embedding-generation
+documents:
+  generate: false
+  glob: '*jsonl'
+  source_path: /fsx-instruct-opt/swj0419/llama_data/embed/b3g_tmp
+index:
+  generate: false
+  index_string: flat
+  index_reference: null
+precalculated_knns:
+  generate: false
+  batch_size: 4096
+  k: 50
+  enable_gpu: true
+tfds_dataset:
+  generate: false
+  k: 5
+  log_to_jsonl_every: 1
+  parallel:
+    distribute: false
+    num_workers_per_file: 1
+    submitit:
+      submitit_path: /private/home/swj0419/rlm_pretrain/submitit
+      cluster: null
+      partition: learnlab
+      cpus_per_task: 3
+      gpus_per_node: 1
+      slurm_mem: 32G
+      slurm_constraint: null
+      slurm_time: 3600
+      slurm_job_name: retro-tfds-generation

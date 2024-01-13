@@ -1,0 +1,159 @@
+# Set you FAISS related hyperparameters here
+d: 768 # embedding dimension
+output: ../../output/knn # output directory
+index:
+  prod:
+    - 'IVF32768,PQ256' #32768 is the number of clusters 
+nprobe:
+  prod:
+    - 64
+  non-prod:
+    - 1
+    - 2
+    - 4
+    - 8
+    - 16
+    - 32
+    - 128
+k: 50 # number of retrieved kNNs  
+metric: METRIC_INNER_PRODUCT
+index_shard_size: 50000000 # 50M
+query_batch_size: 50000000 # 50M
+evaluation_sample: 10000
+training_sample: 1572864 # 16777216 # 33554432 # 4194304
+
+# For the dataset, you can use run python generate_config.py to automatically generate them. 
+datasets:
+  ccnet_new:
+    root: /checkpoint/m2c2/mingdachen/embed/ccnet_new/tokenizer-facebook_contriever_msmarco/seq_len-5100/chunk_len-510/model-facebook_contriever_msmarco
+    size: 634497787
+    files:
+    - dtype: float32
+      format: raw
+      name: ccnet_new.chunk.00.jsonl.npy
+      size: 19831938
+    - dtype: float32
+      format: raw
+      name: ccnet_new.chunk.01.jsonl.npy
+      size: 19829799
+    - dtype: float32
+      format: raw
+      name: ccnet_new.chunk.02.jsonl.npy
+      size: 19827762
+    - dtype: float32
+      format: raw
+      name: ccnet_new.chunk.03.jsonl.npy
+      size: 19830038
+    - dtype: float32
+      format: raw
+      name: ccnet_new.chunk.04.jsonl.npy
+      size: 19827709
+    - dtype: float32
+      format: raw
+      name: ccnet_new.chunk.05.jsonl.npy
+      size: 19819463
+    - dtype: float32
+      format: raw
+       name: ccnet_new.chunk.06.jsonl.npy
+      size: 19828875
+    - dtype: float32
+      format: raw
+      name: ccnet_new.chunk.07.jsonl.npy
+      size: 19832395
+    - dtype: float32
+      format: raw
+      name: ccnet_new.chunk.08.jsonl.npy
+      size: 19825161
+    - dtype: float32
+      format: raw
+      name: ccnet_new.chunk.09.jsonl.npy
+      size: 19826758
+    - dtype: float32
+      format: raw
+      name: ccnet_new.chunk.10.jsonl.npy
+      size: 19819636
+    - dtype: float32
+      format: raw
+      name: ccnet_new.chunk.11.jsonl.npy
+      size: 19833292
+    - dtype: float32
+      format: raw
+      name: ccnet_new.chunk.12.jsonl.npy
+      size: 19827389
+    - dtype: float32
+      format: raw
+      name: ccnet_new.chunk.13.jsonl.npy
+      size: 19829082
+    - dtype: float32
+      format: raw
+      name: ccnet_new.chunk.14.jsonl.npy
+      size: 19827340
+    - dtype: float32
+      format: raw
+      name: ccnet_new.chunk.15.jsonl.npy
+      size: 19825123
+    - dtype: float32
+      format: raw
+      name: ccnet_new.chunk.16.jsonl.npy
+      size: 19829079
+    - dtype: float32
+      format: raw
+      name: ccnet_new.chunk.17.jsonl.npy
+      size: 19835498
+    - dtype: float32
+      format: raw
+      name: ccnet_new.chunk.18.jsonl.npy
+      size: 19825028
+    - dtype: float32
+      format: raw
+      name: ccnet_new.chunk.19.jsonl.npy
+      size: 19829461
+    - dtype: float32
+      format: raw
+      name: ccnet_new.chunk.20.jsonl.npy
+      size: 19823997
+    - dtype: float32
+      format: raw
+      name: ccnet_new.chunk.21.jsonl.npy
+      size: 19822296
+    - dtype: float32
+      format: raw
+      name: ccnet_new.chunk.22.jsonl.npy
+      size: 19827184
+    - dtype: float32
+      format: raw
+      name: ccnet_new.chunk.23.jsonl.npy
+      size: 19830947
+    - dtype: float32
+      format: raw
+      name: ccnet_new.chunk.24.jsonl.npy
+      size: 19836525
+    - dtype: float32
+      format: raw
+      name: ccnet_new.chunk.25.jsonl.npy
+      size: 19832347
+    - dtype: float32
+      format: raw
+      name: ccnet_new.chunk.26.jsonl.npy
+      size: 19827428
+    - dtype: float32
+      format: raw
+      name: ccnet_new.chunk.27.jsonl.npy
+      size: 19827391
+    - dtype: float32
+      format: raw
+      name: ccnet_new.chunk.28.jsonl.npy
+      size: 19833603
+    - dtype: float32
+      format: raw
+      name: ccnet_new.chunk.29.jsonl.npy
+      size: 19825302
+    - dtype: float32
+      format: raw
+      name: ccnet_new.chunk.30.jsonl.npy
+      size: 19832050
+    - dtype: float32
+      format: raw
+      name: ccnet_new.chunk.31.jsonl.npy
+      size: 19817891
+

@@ -1,0 +1,87 @@
+source_path: ../data/b3g_large
+base_path:  ../output/embed
+dataset_name: b3g_large
+
+tokens:
+  generate: false
+  tokenizer:
+    name: facebook/contriever-msmarco
+    repo_or_dir: ../lib/huggingface_pytorch-transformers_main
+    skip_validation: true
+    source: local
+
+sequences:
+  seq_len: 5100
+
+# max length of contriever is 512
+chunks:
+  generate: true
+  chunk_len: 510
+
+embeddings:
+  generate: true
+  batch_size: 128
+  embed_dim: 768
+  model:
+    name: facebook/contriever-msmarco
+    repo_or_dir: ../lib/huggingface_pytorch-transformers_main
+    skip_validation: true
+    source: local
+  parallel:
+    num_workers: 2
+    submitit:
+      submitit_path: ../output/submitit
+      cluster: null
+      partition: learnlab 
+      cpus_per_task: 5
+      gpus_per_node: 1
+      slurm_time: 18
+      slurm_job_name: embedding-generation
+
+
+### The following part is not used in the current version. Please ignore it.
+documents:
+  generate: false
+  glob: "*jsonl"
+  source_path: /fsx-instruct-opt/swj0419/llama_data/embed/b3g_tmp
+
+
+index:
+  generate: false
+  # if generate is true, exactly one of index_reference and index_string should be specified
+  # flat is at present the only supported index_string
+  index_string: flat
+  index_reference:
+  # index_reference: dataset_name=5g/tokenizer=bert-base-cased/seq_len=2048/chunk_len=64/model=bert-base-cased/index_string=flat
+  # index_reference: dataset_name=wikitext-103-train/tokenizer=bert-base-cased/seq_len=2048/chunk_len=64/model=bert-base-cased/index_string=flat
+  # index_reference: dataset_name=1g/tokenizer=bert-base-cased/seq_len=2048/chunk_len=64/model=bert-base-cased/index_string=flat
+
+precalculated_knns:
+  generate: false
+  # batch size with which to query faiss
+  # TODO: tune this parameter
+  batch_size: 4096
+  # TODO: rename to K perhaps
+  k: 50
+  enable_gpu: true
+
+tfds_dataset:
+  generate: false
+  # with the below, we have the dataset name: {dataset_name}_{tokenizer_name}_{seq_len}_{chunk_len}_{model_name}_{index_string}_{K}_{k}
+  # e.g. 1t-0_facebook_contriever_2048_512_facebook_contriever_flat_50_5
+  k: 5
+  log_to_jsonl_every: 1
+  parallel:
+    distribute: False # swj change later
+    num_workers_per_file: 1
+    submitit:
+      submitit_path: /private/home/swj0419/rlm_pretrain/submitit
+      cluster: null
+      partition: learnlab
+      cpus_per_task: 3
+      gpus_per_node: 1
+      slurm_mem: 32G
+      slurm_constraint: null
+      slurm_time: 3600
+      slurm_job_name: retro-tfds-generation
+

@@ -1,0 +1,34 @@
+source_path: ../data/b3g
+base_path: ../data/embed
+dataset_name: b3g
+tokens:
+  generate: true
+  tokenizer:
+    name: facebook/contriever-msmarco
+    repo_or_dir: ../lib/huggingface_pytorch-transformers_main
+    skip_validation: true
+    source: local
+sequences:
+  seq_len: 5100
+chunks:
+  generate: true
+  chunk_len: 510
+embeddings:
+  generate: true
+  batch_size: 128
+  embed_dim: 768
+  model:
+    name: facebook/contriever-msmarco
+    repo_or_dir: ../lib/huggingface_pytorch-transformers_main
+    skip_validation: true
+    source: local
+  parallel:
+    num_workers: 2
+    submitit:
+      submitit_path: ../output/submitit
+      cluster: null
+      partition: learnlab
+      cpus_per_task: 5
+      gpus_per_node: 1
+      slurm_time: 18
+      slurm_job_name: embedding-generation

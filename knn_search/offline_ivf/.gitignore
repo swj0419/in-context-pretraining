@@ -1,0 +1,18 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+
+# Developer tools
+.vscode/
+node_modules
+
+# Installation files
+*.egg-info/
+eggs/
+.eggs/
+*.egg
+
+
+.DS_Store
+# Notebook checkpoints
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*

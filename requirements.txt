@@ -1,0 +1,9 @@
+omegaconf
+rich
+lz4
+tqdm
+hydra
+tqdm
+pyyaml
+ipdb
+submitit

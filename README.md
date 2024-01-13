@@ -89,5 +89,5 @@ python sort.py --domain $DOMAIN --output_dir $OUTPUT_DIR --knn_dir $KNN_DIR --te
 ```
 
 
-🚨**Note**🚨: : After completing the sorting process, you will have a final jsonl file. This file is organized in such a way that documents which are closely related, as determined by the kNN results, are grouped together. When your pretraining code reads this file line by line, it will encounter related documents not only within the same context but also between adjacent contexts. However, it is crucial to maintain document similarity only within the same input context and not across adjacent contexts. Your pretraining code might require additional preprocessing to ensure **diversity** between adjacent contexts.
+🚨**Note**🚨: After completing the sorting process, you will have a sorted `jsonl` file. This file is organized in such a way that documents which are closely related, as determined by the kNN results, are grouped together. When your pretraining code reads this file line by line, it will encounter related documents not only within the same context but also between adjacent contexts. However, it is crucial to maintain document similarity only within the same input context but **not across adjacent contexts**. Your pretraining code might require additional preprocessing to ensure **diversity** between adjacent contexts.
 

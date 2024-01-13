@@ -75,7 +75,7 @@ python run.py --command train_index --config config_test.yaml --xb b3g
 > **Note:** Following this procedure, a `npy` file will be generated, containing the results of the kNN search. Notably, the first row in this file corresponds to the kNN for the first document in the original jsonl dataset.
 
 
-#### Sort documents based on kNNs
+### Sort documents based on kNNs
 Once you have kNNs, you can sort your entire pretraining documents using the following command. It organizes your documents based on their kNN relationships:
 ```
 # Set your domain and directories

@@ -1,6 +1,6 @@
 # Set you FAISS related hyperparameters here
 d: 768 # embedding dimension
-output: /private/home/marialomeli/output/knn # output directory
+output: /../../output/knn # output directory
 index:
   prod:
     - 'IVF32768,PQ256' #32768 is the number of clusters 

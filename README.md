@@ -2,13 +2,21 @@
 # in-context-pretraining
 
 ## Installation
+Add faiss as a submodule when cloning the repo (we require the OIVFBBS code that is not included in the conda package in the demos folder):
+
+```
+git clone https://github.com/swj0419/in-context-pretraining.git
+cd ~/in-context-pretraining
+git add submodule https://github.com/facebookresearch/faiss.git
+```
 
 Set up your environment using the following commands:
 
 ```bash
 conda create -n iclm python=3.10
 conda activate iclm
-conda install -c "pytorch/label/nightly" faiss-gpu -c nvidia
+conda install -c pytorch/label/nightly -c nvidia faiss-gpu=1.7.4
+conda install numpy==1.26.0
 pip install -r requirements.txt
 ```
 
@@ -33,38 +41,48 @@ python retro_z_data.py --config-name example_config
 
 
 #### Efficient kNN search
+** Please see the installation section to add faiss as a submodule in order to run this section**
 
-1. An example config is shown in `configs/config_test.yaml`. You first need to set FAISS related hyperparameters (like Line 2 to Line 23) and use generate_config.py by specifying the embedding dimension and root directory to generate the rest of the config. 
+1. An example config is shown in `configs/config_test.yaml`. To create this file, you can run `generate_config.py`. You first need to set FAISS related hyperparameters (like Line 2 to Line 23) and use generate_config.py by specifying the embedding dimension and root directory to generate the rest of the config.
 
-`python generate_config`
+```
+cd faiss/demos/offline_ivf
+python generate_config
+```
 
-2. Run the train index command
- 
-`python run.py --command train_index --config configs/config_test.yaml --xb ccnet_new --no_residuals`
+2. Run approximate knn search with the faiss OIVFBBS:
 
+```
+cd faiss/demos/offline_ivf
+```
 
-3. Run the index-shard command so it computes the indices per shard
+    a. Run the train index command
 
-`python run.py --command index_shard --config configs/config_test.yaml --xb ccnet_new`
-
-
-4. Run the search distributed job:
- 
-`python run.py  --command search --config configs/config_test.yaml --xb ccnet_new  --cluster_run --partition learnlab`
-
-
-Remarks about the `search` command:
-a. If the query vectors are different than the database vectors,e.g. retro_100M, it should be passed in the xq argument
-b. A new dataset needs to be prepared (following steps 1-3) before passing it to the query vectors argument `–xq`
-
-`python run.py --command search --config configs/config_test.yaml --xb ccnet_new --xq edouard_val`
+    `python run.py --command train_index --config configs/config_test.yaml --xb ccnet_new --no_residuals`
 
 
-5. We can always run the consistency-check for sanity checks!
+    b. Run the index-shard command so it computes the indices per shard
 
-`python run.py  --command consistency_check --config configs/config_test.yaml --xb ccnet_new`
+    `python run.py --command index_shard --config configs/config_test.yaml --xb ccnet_new`
 
-<!-- 
+
+    c. Run the search distributed jobs:
+
+    `python run.py  --command search --config configs/config_test.yaml --xb ccnet_new  --cluster_run --partition <NAME>`
+
+
+    Remarks about the `search` command:
+    - If the query vectors are different than the database vectors, it should be passed in the xq argument
+    - The queries dataset needs to be added to the config (following step 1) before passing it to the query vectors argument `–xq`
+
+    `python run.py --command search --config configs/config_test.yaml --xb ccnet_new --xq <QUERIES_DATASET_NAME>`
+
+
+    d. We can always run the consistency-check for sanity checks!
+
+    `python run.py  --command consistency_check --config configs/config_test.yaml --xb ccnet_new`
+
+<!--
 ```
 cd knn_search/offline_ivf
 python generate_config.py > config_test.yaml

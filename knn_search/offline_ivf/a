@@ -1,8 +1,0 @@
-files:
-- dtype: float32
-  format: raw
-  name: chunk.jsonl.npy
-  size: 5
-root: ../../output/embed/b3g/tokenizer-facebook_contriever_msmarco/seq_len-5100/chunk_len-510/model-facebook_contriever_msmarco/
-size: 5
-

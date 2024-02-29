@@ -2,7 +2,7 @@
 # in-context-pretraining
 
 ## Installation
-Add faiss as a submodule when cloning the repo (we require the OIVFBBS code that is not included in the conda package in the demos folder):
+Add faiss as a submodule when cloning the repo (we require the (faiss OIVFBBS code)[https://github.com/facebookresearch/faiss/tree/main/demos/offline_ivf] that is not included in the faiss conda package in the demos folder):
 
 ```
 git clone https://github.com/swj0419/in-context-pretraining.git
@@ -69,13 +69,6 @@ cd faiss/demos/offline_ivf
     c. Run the search distributed jobs:
 
     `python run.py  --command search --config configs/config_test.yaml --xb ccnet_new  --cluster_run --partition <NAME>`
-
-
-    Remarks about the `search` command:
-    - If the query vectors are different than the database vectors, it should be passed in the xq argument
-    - The queries dataset needs to be added to the config (following step 1) before passing it to the query vectors argument `–xq`
-
-    `python run.py --command search --config configs/config_test.yaml --xb ccnet_new --xq <QUERIES_DATASET_NAME>`
 
 
     d. We can always run the consistency-check for sanity checks!

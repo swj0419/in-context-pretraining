@@ -73,7 +73,7 @@ class sort_class():
 
         self.num_docs_per_file = 50000000
 
-        # self.knns = np.load(f"{self.knn_dir}/{file_name}_IVF32768_PQ256_np64.npy", mmap_mode="r")
+        self.knns = np.load(f"{self.knn_dir}/{file_name}_IVF32768_PQ256_np64.npy", mmap_mode="r")
         self.all_knns = []
         self.cluster_size = 21
 

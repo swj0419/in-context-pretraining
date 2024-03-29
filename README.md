@@ -2,7 +2,7 @@
 # in-context-pretraining
 
 ## Installation
-Add faiss as a submodule when cloning the repo (we require the (faiss OIVFBBS code)[https://github.com/facebookresearch/faiss/tree/main/demos/offline_ivf] that is not included in the faiss conda package in the demos folder):
+Add faiss as a submodule when cloning the repo (we require the [faiss OIVFBBS code](https://github.com/facebookresearch/faiss/tree/main/demos/offline_ivf]) that is not included in the faiss conda package in the demos folder):
 
 ```
 git clone https://github.com/swj0419/in-context-pretraining.git
@@ -56,34 +56,33 @@ python generate_config
 cd faiss/demos/offline_ivf
 ```
 
-    a. Run the train index command
+a. Run the train index command
 
-    `python run.py --command train_index --config configs/config_test.yaml --xb ccnet_new --no_residuals`
-
-
-    b. Run the index-shard command so it computes the indices per shard
-
-    `python run.py --command index_shard --config configs/config_test.yaml --xb ccnet_new`
-
-
-    c. Run the search distributed jobs:
-
-    `python run.py  --command search --config configs/config_test.yaml --xb ccnet_new  --cluster_run --partition <NAME>`
-
-
-    d. We can always run the consistency-check for sanity checks!
-
-    `python run.py  --command consistency_check --config configs/config_test.yaml --xb ccnet_new`
-
-<!--
 ```
-cd knn_search/offline_ivf
-python generate_config.py > config_test.yaml
-python run.py --command train_index --config config_test.yaml --xb b3g
+python run.py --command train_index --config configs/config_test.yaml --xb ccnet_new --no_residuals
+```
 
-``` -->
 
-> **Note:** Following this procedure, a `npy` file will be generated, containing the results of the kNN search. Notably, the first row in this file corresponds to the kNN for the first document in the original jsonl dataset.
+b. Run the index-shard command so it computes the indices per shard
+
+```
+python run.py --command index_shard --config configs/config_test.yaml --xb ccnet_new
+```
+
+
+c. Run the search distributed jobs:
+
+```
+python run.py  --command search --config configs/config_test.yaml --xb ccnet_new  --cluster_run --partition <NAME>`
+```
+
+d. We can always run the consistency-check for sanity checks!
+
+```
+python run.py  --command consistency_check --config configs/config_test.yaml --xb ccnet_new`
+```
+
+**Note:** Following this procedure, a `npy` file will be generated, containing the results of the kNN search. Notably, the first row in this file corresponds to the kNN for the first document in the original jsonl dataset.
 
 
 ### Sort documents based on kNNs

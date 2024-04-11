@@ -179,7 +179,7 @@ class sort_class():
                 merged_clusters_num += 1
                 # print(merged_clusters_num)
                 for doc in cluster_docs:
-                    knns, relative_id = self.knns, doc
+                    knns, relative_id = self.load_corresponding_knns(doc, self.num_docs_per_file, None)
                     top1k, top1k_cluster = self.output_first_doc_knn_not_in_the_cluster(knns[relative_id, :], cluster)
                     # bp()
                     k_cluster_docs = self.cluster2docs[top1k_cluster]
